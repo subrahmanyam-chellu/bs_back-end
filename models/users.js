@@ -28,8 +28,7 @@ const UserSchema = new mongoose.Schema({
     },
     penName:{
         type:String,
-        unique:true,
-        required:true
+        unique:true
     }
 
 }, {timestamps:true});

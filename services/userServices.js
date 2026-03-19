@@ -18,7 +18,7 @@ exports.createUser = async (body) => {
             phoneNumber: body.phoneNumber,
             password: bcryptedPassword,
             role: body.role,
-            penName: body.penName
+            penName: body.penName ?? null
         });
         const result = await newUser.save();
         const userResponse = result.toObject();
@@ -290,17 +290,34 @@ exports.updatePost = async (postData) => {
 //getting all posts operations
 exports.getAllPosts = async (conditions) => {
     try {
-        const pCount = await Post.countDocuments();
+        
         const pageNo = parseInt(conditions.query.pageNo) || 1;
         const pageSize = parseInt(conditions.query.pageSize) || 20;
         const sortOrder = conditions.query.sortOrder === "desc" ? -1 : 1;
+        const postId = conditions.query.postId;
+        const key = conditions.query.search;
+        const authorId = conditions.query.authorId;
+        const status = conditions.query.status;
+        const filter = {};
+        if(key){
+            filter.title={$regex: key, $options: "i"};
+        }
+        if(postId){
+            filter._id = postId;
+        }
+        if(authorId){
+            filter.authorId = authorId;
+        }
+        if(status){
+            filter.status = status;
+        }
+        const skip = ((pageNo - 1) * pageSize)||0;
+        const pCount = await Post.countDocuments(filter);
 
-        const skip = ((pageNo - 1) * pageSize);
-
-        const posts = await Post.find().skip(skip).limit(pageSize).sort({ sortOrder });
+        const posts = await Post.find(filter).skip(skip).limit(pageSize).sort({ createdAt: sortOrder });
         if (posts.length === 0) {
             const error = new Error("no posts are there");
-            error.statusCode = 400;
+            error.statusCode = 404;
             throw error;
         }
         return {
