@@ -28,7 +28,7 @@ const Auth = () => {
 
     return (
         <MainLayout >
-            <Box sx={{display:'flex', justifyContent:'center', width:'100%', mx:{sm:'250px'} }}>
+            <Box sx={{display:'flex', justifyContent:'center', width:{xs:'100vw', sm:'99vw'} }}>
                 <Box sx={{ p: 1, maxWidth: 800, mx: 'auto', mb: { xs: '15px', sm: '0px' }, height: '100%' }}>
                     <Box mb={4}>
                         {isRegister ? (

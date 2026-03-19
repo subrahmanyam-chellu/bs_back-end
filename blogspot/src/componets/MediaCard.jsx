@@ -104,7 +104,7 @@ export default function MediaCard({ data, edit, deletes, publish }) {
         <Button size="medium" variant='contained' color='success' sx={{ textTransform: 'none', borderRadius: 2 }} onClick={handleRead}>Read</Button>
         {edit && <Button size="medium" color='primary' variant='contained' sx={{ textTransform: 'none', borderRadius: 2 }} onClick={handleEdit}>Edit</Button>}
         {deletes && <Button size="medium" color='error' variant='contained' sx={{ textTransform: 'none', borderRadius: 2 }} onClick={handleDelete}>Delete</Button>}
-        {publish && <Button size="medium" color='error' variant='contained' sx={{ textTransform: 'none', borderRadius: 2 }} onClick={handlePublish}>Publish</Button>}
+        {publish && <Button size="medium" color='secondary' variant='contained' sx={{ textTransform: 'none', borderRadius: 2 }} onClick={handlePublish}>Publish</Button>}
       </CardActions>
     </Card>
   );

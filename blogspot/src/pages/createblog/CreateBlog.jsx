@@ -61,7 +61,7 @@ const CreatePost = () => {
 
     const handleSumbit = async () => {
         try {
-            const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/createpost/`, { title, image: imageUrl, content, penName, authorId, status:'draft' },
+            const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/createpost/`, { title, image: imageUrl, content, penName, authorId, status: 'draft' },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             if (result.status === 200) {
@@ -101,34 +101,36 @@ const CreatePost = () => {
 
     return (
         <MainLayout>
-            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100vw' }}>
-                <Box sx={{ minWidth: { xs: '95vw', sm: '410px' }, display: 'flex', flexDirection: 'column', gap: 2, alignContent: 'center', m: { xs: '10px', sm: '25px' }, backgroundColor: '#f4f4f4', '&:focus': { boxShadow: '2px 2px 2px 3px rgb(92, 90, 92)' }, p: 3, justifyContent: 'center', borderRadius: 2 }}>
-                    <Box component='img' src={image} alt='image' width='100%' height='200px' style={{ borderRadius: '10px' }} />
-                    <input accept='image/*' type='file' id='blog-image' onChange={handleFileChange} style={{ display: 'none' }} />
-                    <label htmlFor="blog-image">
-                        <Button variant="contained" component="span" sx={{ textTransform: 'none', m: 'auto', borderRadius: 6 }}>
-                            Upload picture
-                        </Button>
-                    </label>
-                    <TextField
-                        fullWidth
-                        label="Title"
-                        name="title"
-                        value={title}
-                        onChange={(e) => { setTitle(e.target.value) }}
-                        required
-                        sx={{ mb: 2 }}
-                    />
-                    <TextField
-                        fullWidth
-                        label="Content"
-                        name="content"
-                        value={content}
-                        onChange={(e) => { setContent(e.target.value) }}
-                        required
-                        sx={{ mb: 2 }}
-                    />
-                    <Button type="submit" fullWidth variant="contained" color='success' sx={{ textTransform: 'none', fontSize: 18, fontWeight: 500, borderRadius: '10px' }} onClick={() => { handleSumbit(); }}>post</Button>
+            <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between', minHeight:'100vh', width:{xs:'100vw', sm:'99vw'}}}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', width: '100vw' }}>
+                    <Box sx={{ minWidth: { xs: '95vw', sm: '410px' }, display: 'flex', flexDirection: 'column', gap: 2, alignContent: 'center', m: { xs: '10px', sm: '25px' }, backgroundColor: '#f4f4f4', '&:focus': { boxShadow: '2px 2px 2px 3px rgb(92, 90, 92)' }, p: 3, justifyContent: 'center', borderRadius: 2 }}>
+                        <Box component='img' src={image} alt='image' width='100%' height='200px' style={{ borderRadius: '10px' }} />
+                        <input accept='image/*' type='file' id='blog-image' onChange={handleFileChange} style={{ display: 'none' }} />
+                        <label htmlFor="blog-image">
+                            <Button variant="contained" component="span" sx={{ textTransform: 'none', m: 'auto', borderRadius: 6 }}>
+                                Upload picture
+                            </Button>
+                        </label>
+                        <TextField
+                            fullWidth
+                            label="Title"
+                            name="title"
+                            value={title}
+                            onChange={(e) => { setTitle(e.target.value) }}
+                            required
+                            sx={{ mb: 2 }}
+                        />
+                        <TextField
+                            fullWidth
+                            label="Content"
+                            name="content"
+                            value={content}
+                            onChange={(e) => { setContent(e.target.value) }}
+                            required
+                            sx={{ mb: 2 }}
+                        />
+                        <Button type="submit" fullWidth variant="contained" color='success' sx={{ textTransform: 'none', fontSize: 18, fontWeight: 500, borderRadius: '10px' }} onClick={() => { handleSumbit(); }}>post</Button>
+                    </Box>
                 </Box>
             </Box>
         </MainLayout>

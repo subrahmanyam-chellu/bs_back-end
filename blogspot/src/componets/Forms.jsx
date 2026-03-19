@@ -133,7 +133,7 @@ const Forms = ({ isLogin, setIsLogin, isRegister, setIsRegister }) => {
     return (
         <>
             {loading && <CircularIndeterminate texts='Loading...' />}
-            <Box sx={{ justifySelf: 'center', border: '2px solid black', borderRadius: '15px', p: 2, justifyContent: 'center', '&:hover': { boxShadow: '2px 2px 5px 5px grey', transform: 'translateY(-5px)' }, my: { xs: '30px' } }}>
+            <Box sx={{ justifySelf: 'center', border: '2px solid black', borderRadius: '15px', p: 2, justifyContent: 'center', '&:hover': { boxShadow: '2px 2px 5px 5px grey', transform: 'translateY(-5px)' }, my: { xs: '30px' }, minHeight:'100vh' }}>
                 <Box sx={{ width: '95%', display: 'flex', justifyContent: 'space-between', my: 3, p: 0.5, border: '2px solid black', borderRadius: '15px' }}>
                     <Button
                         variant={isRegister ? "contained" : "outlined"}
@@ -147,7 +147,7 @@ const Forms = ({ isLogin, setIsLogin, isRegister, setIsRegister }) => {
                             '&:focus': { outline: 'none' }
                         }}
                     >
-                        Register
+                        Signup
                     </Button>
                     <Button
                         variant={isLogin ? "contained" : "outlined"}
@@ -168,7 +168,7 @@ const Forms = ({ isLogin, setIsLogin, isRegister, setIsRegister }) => {
 
                 {/* Forms */}
                 {isRegister && (
-                    <Box component="form" onSubmit={handleRegister} sx={{ mt: 3, borderRadius: '15px' }}>
+                    <Box component="form" onSubmit={handleRegister} sx={{ mt: 3, borderRadius: '15px'}}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, my: 2 }}>
                             <Avatar src={profile} alt='profile' sx={{ width: '100px', height: '100px', m: 'auto' }} />
                             <input accept='image/*' type='file' id='profile-pic' onChange={handleFileChange} style={{ display: 'none' }} />

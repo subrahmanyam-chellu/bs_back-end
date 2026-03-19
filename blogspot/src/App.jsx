@@ -30,10 +30,7 @@ function App() {
       if (decode.exp * 1000 > Date.now()) {
         handleUserDetails(decode.userId);
       }
-    } else {
-      localStorage.removeItem("x-token");
-      navigate('/auth');
-    }
+  }
   }, []);
 
   const handleUserDetails = async (userId) => {

@@ -38,14 +38,16 @@ const Post = () => {
 
   return (
     <MainLayout>
-      <Box sx={{ display: 'flex', justifyContent: 'center', width: '100vw', gap: 2, my:{xs:'10px', sm:'25px'} }}>
-        <Paper sx={{ p: 2 }}>
-          <Typography variant="h4" sx={{textAlign:'center'}}>{post.title}</Typography>
-          <Box component="img" src={post.image} alt={post.title} sx={{ maxWidth: '100%', my: 2 }} />
-          <Typography sx={{textAlign:'center'}}>{post.content}</Typography>
-          <Typography variant='h6' sx={{ mt: 2 }}>Author:<span style={{fontSize:20}}> {post.penName}</span></Typography>
-          <Button variant='contained' sx={{ mt: 2, borderRadius:2 }} onClick={() => navigate(-1)}>Back</Button>
-        </Paper>
+      <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between', minHeight:'100vh', width:{xs:'100vw', sm:'99vw'}}}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', width: '100vw', gap: 2, my: { xs: '10px', sm: '25px' } }}>
+          <Paper sx={{ p: 2 }}>
+            <Typography variant="h4" sx={{ textAlign: 'center' }}>{post.title}</Typography>
+            <Box component="img" src={post.image} alt={post.title} sx={{ maxWidth: '100%', my: 2 }} />
+            <Typography sx={{ textAlign: 'center' }}>{post.content}</Typography>
+            <Typography variant='h6' sx={{ mt: 2 }}>Author:<span style={{ fontSize: 20 }}> {post.penName}</span></Typography>
+            <Button variant='contained' sx={{ mt: 2, borderRadius: 2 }} onClick={() => navigate(-1)}>Back</Button>
+          </Paper>
+        </Box>
       </Box>
     </MainLayout>
   );

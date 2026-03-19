@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
+import CircularIndeterminate2 from '../../componets/CircularIndeterminate2';
 
 const DeletePage = () => {
     const [latestBlogs, setLatestBlogs] = useState([]);
@@ -23,6 +24,7 @@ const DeletePage = () => {
     const [sort, setSort] = useState('asc');
     const [content, setContent] = useState('');
     const [pageCount, setPageCount] = useState();
+    const [loading, setLoading] = useState(false);
 
     const token = localStorage.getItem("x-token");
     const navigate = useNavigate();
@@ -54,6 +56,7 @@ const DeletePage = () => {
 
     const getLatestBlogs = async () => {
         try {
+            setLoading(true);
             const result = await axios.get(
                 `${import.meta.env.VITE_BACKEND_URL}/getallposts?search=${content}&pageNo=${pageNo}&sortOrder=${sort}`,
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -63,12 +66,14 @@ const DeletePage = () => {
                 setTotalPosts(result.data.totalPosts);
                 setPageCount(Math.ceil(totalPosts / 20));
             }
+            setLoading(false);
         } catch (err) {
             console.error("Error fetching blogs:", err);
             if (err.response?.status === 401) {
                 localStorage.removeItem("x-token");
                 navigate('/auth');
             }
+            setLoading(false);
         }
     };
 
@@ -80,39 +85,41 @@ const DeletePage = () => {
 
     return (
         <MainLayout>
-            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 2, justifyContent: 'center', width: '100%' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', maxWidth: '430px' }}>
-                    <TextField
-                        label="search blogs"
-                        name="search blogs"
-                        type="text"
-                        value={content}
-                        onChange={(e) => { setContent(e.target.value) }}
-                        required
-                        sx={{
-                            width: { xs: '90%', sm: '540px' }, m: 2, borderRadius: 5,
-                            "& .MuiInputBase-root": { height: { xs: '35px' } }, "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "black", borderRadius: 5 } }, textAlign: 'center'
-                        }}
-                    />
-                    <Button variant='contained' sx={{ width: '100px', height: '35px', textAlign: 'center', borderRadius: 5 }} onClick={() => { getLatestBlogs(); }}>search</Button>
+            <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between', minHeight:'100vh', width:{xs:'100vw', sm:'99vw'}}}>
+                <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 2, justifyContent: 'center', width: '100%' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', maxWidth: '430px' }}>
+                        <TextField
+                            label="search blogs"
+                            name="search blogs"
+                            type="text"
+                            value={content}
+                            onChange={(e) => { setContent(e.target.value) }}
+                            required
+                            sx={{
+                                width: { xs: '90%', sm: '540px' }, m: 2, borderRadius: 5,
+                                "& .MuiInputBase-root": { height: { xs: '35px' } }, "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "black", borderRadius: 5 } }, textAlign: 'center'
+                            }}
+                        />
+                        <Button variant='contained' sx={{ width: '100px', height: '35px', textAlign: 'center', borderRadius: 5 }} onClick={() => { getLatestBlogs(); }}>search</Button>
+                    </Box>
                 </Box>
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, m: { xs: '10px', sm: '25px' } }}>
-                {/* {latestBlogs.map((item) => (
+                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, m: { xs: '10px', sm: '25px' } }}>
+                    {/* {latestBlogs.map((item) => (
                     <MediaCard key={item._id} data={item} deletes={true} />
                 ))} */}
-                <Grid container spacing={2} justifyContent="center">
-                    {latestBlogs.map((item) => (
-                        <Grid item xs={12} sm={6} md={4} key={item._id}>
-                            <MediaCard key={item._id} data={item} deletes={true} />
-                        </Grid>
-                    ))}
-                </Grid>
+                    {loading&&<CircularIndeterminate2 texts='Loading...'/>}
+                    <Grid container spacing={2} justifyContent="center">
+                        {latestBlogs.map((item) => (
+                            <Grid item xs={12} sm={6} md={4} key={item._id}>
+                                <MediaCard key={item._id} data={item} deletes={true} />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center', minWidth: '100vw' }}>
+                    <Pagination count={pageCount} page={pageNo} onChange={handlePageChange} />
+                </Box>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'center', minWidth: '100vw' }}>
-                <Pagination count={pageCount} page={pageNo} onChange={handlePageChange} />
-            </Box>
-
         </MainLayout>
     )
 }

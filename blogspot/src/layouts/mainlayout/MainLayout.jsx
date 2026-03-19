@@ -34,6 +34,10 @@ const MainLayout = ({ children }) => {
       {
         pageName: "Delete",
         pageAddress: "/deletepage"
+      },
+      {
+        pageName: "Create Blog",
+        pageAddress: "/create"
       }
       ];
       setPages(pages);
@@ -62,6 +66,10 @@ const MainLayout = ({ children }) => {
       {
         pageName: "My blogs",
         pageAddress: "/myblogspage"
+      },
+      {
+        pageName: "Create Blog",
+        pageAddress: "/create"
       }
       ];
       setPages(pages);
@@ -77,7 +85,12 @@ const MainLayout = ({ children }) => {
       const pages = [{
         pageName:"Login",
         pageAddress:"/auth"
-      }];
+      },
+      {
+        pageName:"Singup",
+        pageAddress:"/auth"
+      }
+    ];
       setPages(pages);
     }
   }, [role]);
