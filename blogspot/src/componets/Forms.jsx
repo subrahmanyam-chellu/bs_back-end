@@ -23,7 +23,7 @@ const Forms = ({ isLogin, setIsLogin, isRegister, setIsRegister }) => {
     const [repassword, setRepassword] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [role, setRole] = useState('');
-    const [penName, setPenName] = useState('');
+    const [penName, setPenName] = useState(null);
     const [error, setError] = useState('');
     const [errorL, setErrorL] = useState('');
     const [loading, setLoading] = useState(false);

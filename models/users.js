@@ -27,10 +27,15 @@ const UserSchema = new mongoose.Schema({
         required:true
     },
     penName:{
-        type:String,
-        unique:true
+        type:String, 
+        default:null
     }
 
 }, {timestamps:true});
+
+UserSchema.index(
+  { penName: 1 },
+  { unique: true, partialFilterExpression: { penName: { $exists: true, $ne: null } } }
+);
 
 module.exports = mongoose.model('User', UserSchema);
