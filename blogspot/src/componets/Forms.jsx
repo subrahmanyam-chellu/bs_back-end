@@ -62,7 +62,7 @@ const Forms = ({ isLogin, setIsLogin, isRegister, setIsRegister }) => {
     const handleRegister = async (e) => {
         e.preventDefault();
         if(role=='user'){
-            setPenName('');
+            setPenName(null);
         }
         setLoading(true);
         try {
